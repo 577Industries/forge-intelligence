@@ -1,0 +1,29 @@
+# Forge Intelligence — one command to a running console.
+#
+#   docker compose up
+#   → http://localhost:3000
+#
+# Runs with no API keys and no external services: every default layer is a
+# public-domain feed. Redis is optional and only shares the feed cache and
+# rate-limit counters across instances.
+
+services:
+  forge-intelligence:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      # Uncomment to share cache + rate limits across replicas.
+      # REDIS_URL: redis://redis:6379
+      #
+      # Uncomment to enable the AI analyst.
+      # GOOGLE_GENERATIVE_AI_API_KEY: ""
+      #
+      # Uncomment to enable the gated RECON tools for a single operator.
+      # FI_OPERATOR_TOKEN: ""
+      NODE_ENV: production
+    restart: unless-stopped
+
+  # redis:
+  #   image: redis:7-alpine
+  #   restart: unless-stopped

@@ -1,0 +1,273 @@
+/* ─────────────────────────────────────────────────────────────
+ * FORGE INTELLIGENCE — OSINT console design system
+ * Fourth frontier technology. A rebranded, re-architected fork of
+ * Osiris (MIT): https://github.com/simplifaisoul/osiris — see /NOTICE.
+ *
+ * Authored fresh in the 577i design language (Forge teal + sky
+ * accent). ALL tokens + rules are scoped to `.fi-root` and MUST NOT
+ * leak into the main app (mirrors the cfraw `.cfraw-root` contract).
+ * Deliberately NO global html/body reset and NO universal `*`
+ * transition — the full-screen behaviour is applied only to
+ * `.fi-root` / `.fi-viewport`, never to `html`/`body`.
+ * ───────────────────────────────────────────────────────────── */
+
+@theme inline {
+  /* Surfaces (dark HUD) — Forge void → panel */
+  --color-fi-void:      #04060B;
+  --color-fi-base:      #070A12;
+  --color-fi-surface:   #0C111C;
+  --color-fi-surface-2: #121826;
+  --color-fi-panel:     rgba(8, 12, 20, 0.88);
+  --color-fi-panel-2:   rgba(14, 20, 32, 0.94);
+
+  /* Brand: Forge teal primary + sky-intelligence accent */
+  --color-fi-teal:      #00d4aa;
+  --color-fi-teal-hi:   #2dd4bf;
+  --color-fi-teal-dim:  #0a9a80;
+  --color-fi-sky:       #38bdf8;
+  --color-fi-sky-hi:    #7dd3fc;
+  --color-fi-sky-dim:   #0284c7;
+
+  /* Signal / status colors */
+  --color-fi-alert:     #ff4d4d;
+  --color-fi-warn:      #ffa500;
+  --color-fi-ok:        #00e676;
+  --color-fi-info:      #448aff;
+
+  /* Text scale */
+  --color-fi-text:      #E6EAF0;
+  --color-fi-text-2:    #9aa4b2;
+  --color-fi-muted:     #5b6472;
+  --color-fi-heading:   #F2F6FC;
+
+  /* Rules / borders */
+  --color-fi-rule:      rgba(255, 255, 255, 0.08);
+  --color-fi-rule-hi:   rgba(56, 189, 248, 0.24);
+}
+
+/*
+ * Typography activation. JetBrains Mono (HUD/telemetry) + Inter (body)
+ * are loaded in src/app/intelligence/app/layout.tsx via next/font/google
+ * (self-hosted at build time → CSP-safe) and assigned to --font-fi-mono
+ * / --font-fi-sans. Remap the Tailwind font utility vars INSIDE the
+ * .fi-root subtree only, so `font-sans` / `font-mono` classes resolve to
+ * the console stack without touching JSX.
+ */
+.fi-root {
+  --fi-edge: 16px;
+  --font-sans: var(--font-fi-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-fi-mono), ui-monospace, "SFMono-Regular", monospace;
+
+  color: var(--color-fi-text);
+  background: var(--color-fi-void);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Full-screen viewport for the console — scoped, never touches html/body.
+ * Subtle radial atmosphere so the dark-matter globe reads against the void
+ * instead of vanishing into it. */
+.fi-viewport {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 70% 80% at 50% 46%, rgba(12, 40, 58, 0.55) 0%, rgba(6, 14, 22, 0.4) 42%, var(--color-fi-void) 72%),
+    var(--color-fi-void);
+}
+
+/* ── HUD primitives ───────────────────────────────────────────── */
+
+.fi-root .fi-glass {
+  background: var(--color-fi-panel);
+  border: 1px solid var(--color-fi-rule);
+  border-radius: 14px;
+  backdrop-filter: blur(14px) saturate(1.2);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
+}
+.fi-root .fi-glass:hover {
+  border-color: var(--color-fi-rule-hi);
+}
+
+.fi-root .fi-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--color-fi-sky);
+}
+.fi-root .fi-label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-fi-text-2);
+}
+.fi-root .fi-value {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-fi-heading);
+}
+
+/* Scoped thin scrollbar. */
+.fi-root .fi-scroll::-webkit-scrollbar { width: 4px; height: 4px; }
+.fi-root .fi-scroll::-webkit-scrollbar-track { background: transparent; }
+.fi-root .fi-scroll::-webkit-scrollbar-thumb {
+  background: var(--color-fi-rule-hi);
+  border-radius: 8px;
+}
+.fi-root .fi-scroll { scrollbar-width: thin; scrollbar-color: var(--color-fi-rule-hi) transparent; }
+
+/* ── Layer toggle switch ──────────────────────────────────────── */
+
+.fi-root .fi-toggle {
+  position: relative;
+  width: 34px;
+  height: 18px;
+  flex: none;
+  border-radius: 999px;
+  border: 1px solid var(--color-fi-rule);
+  background: rgba(255, 255, 255, 0.04);
+  cursor: pointer;
+  transition: background var(--dur-fast, 180ms), border-color var(--dur-fast, 180ms);
+}
+.fi-root .fi-toggle::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--color-fi-muted);
+  transition: transform var(--dur-fast, 180ms), background var(--dur-fast, 180ms);
+}
+.fi-root .fi-toggle[aria-pressed="true"] {
+  background: rgba(56, 189, 248, 0.22);
+  border-color: var(--color-fi-sky);
+}
+.fi-root .fi-toggle[aria-pressed="true"]::after {
+  transform: translateX(16px);
+  background: var(--color-fi-sky);
+  box-shadow: 0 0 8px rgba(56, 189, 248, 0.55);
+}
+
+/* ── Decorative overlays (scoped) ─────────────────────────────── */
+
+.fi-root .fi-vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 55%,
+    rgba(0, 0, 0, 0.55) 100%
+  );
+}
+
+/* Risk color helpers. */
+.fi-root .fi-risk-critical { color: var(--color-fi-alert); }
+.fi-root .fi-risk-high     { color: var(--color-fi-warn); }
+.fi-root .fi-risk-medium   { color: var(--color-fi-sky); }
+.fi-root .fi-risk-low      { color: var(--color-fi-ok); }
+
+/* ── MapLibre overrides — scoped to the console, not global ───── */
+
+/*
+ * Basemap attribution stays VISIBLE — OpenFreeMap, OpenMapTiles, OpenStreetMap
+ * and Esri all require credit where the map is displayed, so hiding this puts
+ * the console in breach of its tile licences. Restyled for the dark HUD rather
+ * than suppressed. See docs/intelligence/data-sources.md.
+ */
+/* Three classes deep: MapLibre's own `.maplibregl-ctrl-attrib.maplibregl-compact`
+   ties on specificity and loads later, so a two-class selector loses the
+   background and colour to it. */
+.fi-root .maplibregl-ctrl.maplibregl-ctrl-attrib {
+  background: var(--color-fi-panel-2);
+  border: 1px solid var(--color-fi-rule);
+  border-radius: 6px;
+  color: var(--color-fi-text-2);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.04em;
+  padding: 2px 6px;
+}
+.fi-root .maplibregl-ctrl.maplibregl-ctrl-attrib a {
+  color: var(--color-fi-text-2);
+  text-decoration: none;
+}
+.fi-root .maplibregl-ctrl.maplibregl-ctrl-attrib a:hover {
+  color: var(--color-fi-sky);
+  text-decoration: underline;
+}
+.fi-root .maplibregl-ctrl-attrib-button { background-color: var(--color-fi-text-2); }
+
+.fi-root .maplibregl-popup-tip { display: none; }
+.fi-root .maplibregl-popup-content {
+  background: var(--color-fi-panel-2);
+  color: var(--color-fi-text);
+  border: 1px solid var(--color-fi-rule-hi);
+  border-radius: 10px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  padding: 10px 12px;
+}
+.fi-root .maplibregl-popup-close-button { color: var(--color-fi-muted); }
+.fi-root .maplibregl-popup-close-button:hover { color: var(--color-fi-sky); }
+
+/* Feature popups (see LAYER_POPUPS in ForgeIntelMap). */
+.fi-root .fi-popup-eyebrow {
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-fi-sky);
+}
+.fi-root .fi-popup-title {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 1.35;
+  color: var(--color-fi-heading);
+  margin: 3px 0 7px;
+  padding-right: 14px; /* clear the close button */
+}
+.fi-root .fi-popup-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 2px 0;
+  border-top: 1px solid var(--color-fi-rule);
+}
+.fi-root .fi-popup-row span { color: var(--color-fi-muted); }
+.fi-root .fi-popup-row b { color: var(--color-fi-text); font-weight: 600; text-align: right; }
+
+/* ── Motion (reduced-motion-safe) ─────────────────────────────── */
+
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes fi-pulse {
+    0%, 100% { opacity: 0.55; }
+    50%      { opacity: 1; }
+  }
+  .fi-root .fi-pulse { animation: fi-pulse 2.4s var(--ease-editorial, ease-in-out) infinite; }
+
+  @keyframes fi-sweep {
+    0%   { transform: translateY(-100%); opacity: 0; }
+    50%  { opacity: 0.6; }
+    100% { transform: translateY(100%); opacity: 0; }
+  }
+
+  /* Status ticker. The track renders its items twice, so translating by
+     -50% loops seamlessly. */
+  @keyframes fi-marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  .fi-root .fi-marquee { animation: fi-marquee 70s linear infinite; }
+  .fi-root .fi-marquee:hover { animation-play-state: paused; }
+}
+
+/* Reduced motion: no scroll, just let it overflow-scroll manually. */
+@media (prefers-reduced-motion: reduce) {
+  .fi-root .fi-ticker-track { overflow-x: auto; }
+}
