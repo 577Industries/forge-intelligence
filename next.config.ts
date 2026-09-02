@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 /**
- * Content-Security-Policy is load-bearing here, not boilerplate.
+ * Content-Security-Policy is the security boundary of this app, not boilerplate.
  *
  * `connect-src 'self'` is why /api/intelligence/tiles exists: the browser
  * cannot reach a tile CDN directly, so the basemap is proxied through a

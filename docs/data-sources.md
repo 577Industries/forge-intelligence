@@ -4,7 +4,7 @@ Every upstream feed the console consumes, with its licence and commercial
 status. This file is the answer to "can we ship this?" — if a source is not
 listed here, it is not wired in.
 
-Two rules govern the inventory, and both are load-bearing:
+Two rules govern the inventory, and both are binding:
 
 1. **Commercial-use clean.** 577 Industries is a commercial entity, so a
    source that is free only for non-commercial use is disqualified regardless
