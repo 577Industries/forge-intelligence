@@ -9,7 +9,5 @@ updates:
       npm-minor-patch:
         patterns: ["*"]
         update-types: ["minor", "patch"]
-  - package-ecosystem: "github-actions"
-    directory: "/"
-    schedule:
-      interval: "monthly"
+  # No github-actions ecosystem on purpose: this repo has no workflows, and
+  # Dependabot fails the whole run when it cannot find any (2026-09-02).
