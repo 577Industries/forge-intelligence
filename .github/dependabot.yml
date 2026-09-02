@@ -1,13 +1,16 @@
 version: 2
 updates:
+  # Security updates only: this repo is an export artifact; version bumps come
+  # from 577i-unified. A limit of 0 stops version-update PRs while Dependabot
+  # security updates keep working.
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
       interval: "monthly"
-    open-pull-requests-limit: 5
-    groups:
-      npm-minor-patch:
-        patterns: ["*"]
-        update-types: ["minor", "patch"]
-  # No github-actions ecosystem on purpose: this repo has no workflows, and
-  # Dependabot fails the whole run when it cannot find any (2026-09-02).
+    open-pull-requests-limit: 0
+  # Restored with the first workflow (.github/workflows/ci.yml); it was dropped
+  # in #7 only because Dependabot fails a run when no workflows exist.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
