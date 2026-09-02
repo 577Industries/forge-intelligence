@@ -16,31 +16,30 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
     "test": "vitest run",
     "test:e2e": "playwright test"
   },
   "dependencies": {
-    "next": "^16.2.6",
-    "react": "19.2.3",
-    "react-dom": "19.2.3",
+    "next": "^16.2.12",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
     "maplibre-gl": "^5.24.0",
-    "@xyflow/react": "^12.10.1",
+    "@xyflow/react": "^12.11.5",
     "satellite.js": "^6.0.1",
-    "undici": "^7.28.0",
+    "undici": "^8.10.0",
     "ai": "^7.0.15",
-    "@ai-sdk/google": "^4.0.8",
+    "@ai-sdk/google": "^4.0.51",
     "@ai-sdk/anthropic": "^4.0.8",
-    "@ai-sdk/openai": "^4.0.7",
-    "ioredis": "^5.10.0"
+    "@ai-sdk/openai": "^4.0.46",
+    "ioredis": "^6.0.0"
   },
   "devDependencies": {
     "typescript": "^6.0.3",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "vitest": "^4.1.9",
-    "@playwright/test": "^1.58.2",
+    "vitest": "^4.1.11",
+    "@playwright/test": "^1.62.1",
     "@types/geojson": "^7946.0.16"
   }
 }

@@ -1,7 +1,7 @@
 /**
  * Forge Intelligence — AI analyst endpoint.
  *
- * POST { query, context } → { analysis } via the AI gateway (Gemini 3.6 Flash
+ * POST { query, context } → { analysis } via the AI gateway (Gemini 3.7 Flash
  * by default; FI_ANALYST_MODEL overrides). Rate-limited for cost control.
  * CSRF is enforced by the proxy (same-origin Origin check) — no bypass needed.
  * Returns 503 "analyst_unavailable" when no valid Google key is configured.
