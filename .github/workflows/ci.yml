@@ -23,6 +23,4 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      # No lint step: the exported `lint` script is `next lint`, which Next 16
-      # removed, and no ESLint config is exported. Fix belongs in the monorepo.
       - run: npm run build

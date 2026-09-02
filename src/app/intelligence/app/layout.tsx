@@ -16,19 +16,23 @@
  */
 
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import localFont from "next/font/local";
 
 import "../intelligence.css";
 
-const inter = Inter({
-  subsets: ["latin"],
+// Vendored latin-subset woff2 (SIL OFL 1.1 — see ../../fonts/README.md);
+// no build-time Google Fonts fetch. Same families/variables as before.
+const inter = localFont({
+  src: "../../fonts/inter-latin-var.woff2",
   variable: "--font-fi-sans",
+  weight: "100 900",
   display: "swap",
 });
 
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
+const jetbrainsMono = localFont({
+  src: "../../fonts/jetbrains-mono-latin-var.woff2",
   variable: "--font-fi-mono",
+  weight: "100 800",
   display: "swap",
 });
 

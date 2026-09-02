@@ -3,7 +3,7 @@
  *
  * Routes through the 577i AI gateway (src/lib/ai/gateway.ts) — NOT a direct
  * provider SDK (the upstream Osiris `@google/generative-ai` import is dropped).
- * Default model is Gemini 3.6 Flash; override with FI_ANALYST_MODEL
+ * Default model is Gemini 3.7 Flash; override with FI_ANALYST_MODEL
  * (a "provider/model" gateway string) without touching code.
  *
  * Requires a valid GOOGLE_GENERATIVE_AI_API_KEY. If the key is missing or
@@ -15,7 +15,7 @@ import { generateText } from "ai";
 import { model } from "@/lib/ai/gateway";
 
 export const FI_ANALYST_MODEL =
-  process.env.FI_ANALYST_MODEL ?? "google/gemini-3.6-flash";
+  process.env.FI_ANALYST_MODEL ?? "google/gemini-3.7-flash";
 
 const SYSTEM_PROMPT = `You are the Forge Intelligence analyst — an open-source
 intelligence (OSINT) fusion assistant for a real-time global monitoring console.

@@ -188,13 +188,6 @@ is for.
 **Security reports are the exception** and are genuinely wanted: see
 [SECURITY.md](SECURITY.md).
 
-## Maintenance
-
-This repository is exported from the 577i-unified monorepo by its
-`scripts/export-forge-intelligence.ts`; it is never edited directly and never
-merged back, so dependency updates arrive through the next export rather than
-through pull requests here. CI runs install + build on every PR.
-
 ---
 
 <div align="center">

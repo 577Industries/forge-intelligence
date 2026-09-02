@@ -23,7 +23,7 @@ This fork is a substantive re-architecture, not a re-skin:
 - **Branding & design** — rebranded to Forge Intelligence with the 577i design
   system; all "Osiris" wordmarks, glyphs, and Egyptian-mythology motifs removed.
 - **AI analyst** — the upstream's direct `@google/generative-ai` SDK dependency is
-  replaced by an analyst routed through the 577i AI gateway (default Gemini 3.6
+  replaced by an analyst routed through the 577i AI gateway (default Gemini 3.7
   Flash, overridable via `FI_ANALYST_MODEL`), so the model is a configuration
   choice rather than a hard-wired vendor SDK.
 - **Security** — the upstream IP / User-Agent spoofing layer (`stealthFetch`) is

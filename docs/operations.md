@@ -12,7 +12,7 @@ costs and what it obliges us to display — is in
 
 | Variable | Unlocks | Without it |
 |---|---|---|
-| `FI_ANALYST_MODEL` | Overrides the analyst model | Defaults to `google/gemini-3.6-flash` via the AI gateway |
+| `FI_ANALYST_MODEL` | Overrides the analyst model | Defaults to `google/gemini-3.7-flash` via the AI gateway |
 | `EIA_API_KEY` | Energy quotes from the EIA | `/api/intelligence/markets` returns 503 |
 | `FI_MARKETS_URL` | Points the ticker at a quote source | Ticker carries intelligence data, no quotes |
 | `FI_GEOIP_URL` | Coordinates on RECON IP lookups | RDAP network data without geolocation |
